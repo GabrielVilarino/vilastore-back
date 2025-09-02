@@ -2,12 +2,10 @@ from fastapi import APIRouter, Depends, HTTPException, Body
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy import func
-from models import BuscaMovimentacoes
-from pool.pool import get_db
-from pool.models import Movimentacoes, Produtos
-from sqlalchemy import cast
-from sqlalchemy.dialects.postgresql import ENUM
-from models import Movimentacao, BuscaProduto, DeleteById, UpdateById
+from src.models import BuscaMovimentacoes
+from src.pool.pool import get_db
+from src.pool.models import Movimentacoes, Produtos
+from src.models import Movimentacao, DeleteById
 from datetime import datetime
 router = APIRouter()
 
