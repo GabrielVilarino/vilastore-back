@@ -49,7 +49,7 @@ async def add_produto(
     try:
         novo_produto = Produtos(
             nome_produto=form_data.nome_produto,
-            valor=form_data.valor,
+            descricao=form_data.descricao,
             quantidade=form_data.quantidade
         )
         
@@ -62,7 +62,7 @@ async def add_produto(
             "produto": {
                 "id": novo_produto.id,
                 "nome": novo_produto.nome_produto,
-                "valor": novo_produto.valor,
+                "descricao": novo_produto.descricao,
                 "quantidade": novo_produto.quantidade
             }
         }
