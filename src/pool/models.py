@@ -14,6 +14,8 @@ class Movimentacoes(Base):
     produto_id = Column(Integer, nullable=False)
     data_movimentacao = Column(DateTime, nullable=False)
     quantidade = Column(Integer, nullable=False)
+    valor_und = Column(Float, nullable=False)
+    valor_total = Column(Float, nullable=False)
 
 class Produtos(Base):
     __tablename__ = "estoque"
@@ -21,6 +23,5 @@ class Produtos(Base):
 
     id = Column(Integer, primary_key=True)
     nome_produto = Column(String(100), nullable=False)
-    valor = Column(Float, nullable=False)
     quantidade = Column(Integer, nullable=False)
-    
+    descricao = Column(String(50), nullable=True)

@@ -17,11 +17,13 @@ class UpdateById(BaseModel):
 
 class Produto(BaseModel):
     nome_produto: str
-    valor: float
     quantidade: int
+    descricao: str
 
 class Movimentacao(BaseModel):
     tipo: str
     produto_id: int
     data_movimentacao: str
     quantidade: int
+    valor_und: float
+    valor_total: Optional[float] = None

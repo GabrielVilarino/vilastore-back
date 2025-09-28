@@ -93,7 +93,7 @@ async def update_produto(
 
         # Atualiza os campos
         produto.nome_produto = form_data.nome_produto
-        produto.valor = form_data.valor
+        produto.descricao = form_data.descricao
         produto.quantidade = form_data.quantidade
 
         db.add(produto)
@@ -105,7 +105,7 @@ async def update_produto(
             "produto": {
                 "id": produto.id,
                 "nome": produto.nome_produto,
-                "valor": produto.valor,
+                "descricao": produto.descricao,
                 "quantidade": produto.quantidade
             }
         }

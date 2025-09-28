@@ -40,8 +40,10 @@ async def get_movimentacoes(filtros: BuscaMovimentacoes | None = None, db: Async
                 "tipo": mov.tipo,
                 "produto_id": mov.produto_id,
                 "nome_produto": prod.nome_produto,
-                "valor": prod.valor,
+                "descricao": prod.descricao,
                 "quantidade": mov.quantidade,
+                "valor_unidade": mov.valor_und,
+                "valor_total": mov.valor_total,
                 "data_movimentacao": mov.data_movimentacao
             })
 
@@ -74,6 +76,8 @@ async def add_movimentacao(
             raise HTTPException(status_code=404, detail="Produto não encontrado")
         
         nome_produto = produto.nome_produto
+        descricao = produto.descricao
+        id_produto = produto.id
         quantidade_atual = produto.quantidade
     except Exception as e:
         print(f"Erro ao procurar produto: {e}")
@@ -88,7 +92,9 @@ async def add_movimentacao(
             tipo=form_data.tipo,
             produto_id=form_data.produto_id,
             data_movimentacao=data,
-            quantidade=form_data.quantidade
+            quantidade=form_data.quantidade,
+            valor_und=form_data.valor_und,
+            valor_total=form_data.quantidade * form_data.valor_und
         )
         
         db.add(nova_movimentacao)
@@ -110,8 +116,12 @@ async def add_movimentacao(
                 "id": nova_movimentacao.id,
                 "tipo": nova_movimentacao.tipo,
                 "nomeProduto": nome_produto,
+                "idProduto": id_produto,
+                "descricao": descricao,
                 "dataMovimentacao": nova_movimentacao.data_movimentacao,
-                "quantidade": nova_movimentacao.quantidade
+                "quantidade": nova_movimentacao.quantidade,
+                "valorUnidade": nova_movimentacao.valor_und,
+                "valorTotal": nova_movimentacao.valor_total
             }
         }
 
@@ -158,6 +168,8 @@ async def update_movimentacao(
         movimentacao.produto_id = form_data.produto_id
         movimentacao.data_movimentacao = data_atualizada
         movimentacao.quantidade = form_data.quantidade
+        movimentacao.valor_und = form_data.valor_und
+        movimentacao.valor_total = form_data.quantidade * form_data.valor_und
 
         db.add(movimentacao)
 
@@ -186,8 +198,11 @@ async def update_movimentacao(
                 "tipo": movimentacao.tipo,
                 "idProduto": movimentacao.produto_id,
                 "nomeProduto": nome_produto,
+                "descricao": produto.descricao,
                 "quantidade": movimentacao.quantidade,
-                "dataMovimentacao": movimentacao.data_movimentacao
+                "dataMovimentacao": movimentacao.data_movimentacao,
+                "valorUnidade": movimentacao.valor_und,
+                "valorTotal": movimentacao.valor_total
             }
         }
 
